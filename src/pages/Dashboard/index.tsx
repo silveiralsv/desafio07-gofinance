@@ -26,9 +26,9 @@ interface Transaction {
 }
 
 interface Balance {
-  income: string;
-  outcome: string;
-  total: string;
+  income: number;
+  outcome: number;
+  total: number;
 }
 
 interface Response {
@@ -48,6 +48,11 @@ const Dashboard: React.FC = () => {
 
       const balanceResp = response.data.balance;
 
+      // Setting string to Number
+      balanceResp.income = Number(balanceResp.income);
+      balanceResp.outcome = Number(balanceResp.outcome);
+      balanceResp.total = Number(balanceResp.total);
+
       setTransactions([...transactionsResp]);
       setBalance(balanceResp);
     }
@@ -66,7 +71,7 @@ const Dashboard: React.FC = () => {
               <img src={income} alt="Income" />
             </header>
             <h1 data-testid="balance-income">
-              {`${formatValue(Number(balance.income))}`}
+              {`${formatValue(balance.income)}`}
             </h1>
           </Card>
           <Card>
@@ -75,7 +80,7 @@ const Dashboard: React.FC = () => {
               <img src={outcome} alt="Outcome" />
             </header>
             <h1 data-testid="balance-outcome">
-              {`${formatValue(Number(balance.outcome))}`}
+              {`${formatValue(balance.outcome)}`}
             </h1>
           </Card>
           <Card total>
@@ -84,7 +89,7 @@ const Dashboard: React.FC = () => {
               <img src={total} alt="Total" />
             </header>
             <h1 data-testid="balance-total">
-              {`${formatValue(Number(balance.total))}`}
+              {`${formatValue(balance.total)}`}
             </h1>
           </Card>
         </CardContainer>
